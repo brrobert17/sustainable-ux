@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="URGENT: Save Our Oceans - The last chance to protect marine life and reduce plastic pollution">
+    <title>URGENT: Save Our Oceans | Last Chance Campaign</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Preload critical CSS -->
+    <link rel="preload" href="style.css" as="style">
+    <!-- Cache control -->
+    <meta http-equiv="Cache-Control" content="max-age=86400">
+    <style>
+        /* Dark patterns specific styles */
+        .countdown {
+            background-color: var(--danger);
+            color: white;
+            text-align: center;
+            padding: var(--space-sm);
+            font-weight: bold;
+        }
+        
+        .premium-badge {
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-left: var(--space-sm);
+        }
+        
+        .social-proof {
+            background-color: rgba(0,0,0,0.7);
+            color: white;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            padding: var(--space-sm);
+            border-radius: 4px;
+            font-size: 0.875rem;
+            z-index: 100;
+            max-width: 250px;
+            animation: fadeInOut 10s infinite;
+        }
+        
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .popup {
+            background-color: white;
+            padding: var(--space-lg);
+            border-radius: 8px;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .close-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+        
+        .popup h3 {
+            color: var(--danger);
+        }
+        
+        .popup .submit-button {
+            margin-top: var(--space-md);
+        }
+        
+        .popup .decline {
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 0.75rem;
+            margin-top: var(--space-md);
+            cursor: pointer;
+        }
+        
+        .hidden-costs {
+            font-size: 0.75rem;
+            color: #999;
+            margin-top: var(--space-xs);
+        }
+        
+        .checkbox-group.dark-pattern {
+            font-size: 0.875rem;
+        }
+        
+        .checkbox-group.dark-pattern input {
+            opacity: 0.5;
+        }
+        
+        /* Pre-checked boxes */
+        #newsletter, #partner-offers {
+            opacity: 1;
+        }
+        
+        .fake-limited {
+            color: var(--danger);
+            font-size: 0.875rem;
+            margin-top: var(--space-xs);
+        }
+        
+        .hero h2 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: var(--space-md);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .urgency-badge {
+            display: inline-block;
+            background-color: var(--danger);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            margin-bottom: var(--space-md);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .hero .cta-button {
+            animation: shake 5s infinite;
+            animation-delay: 3s;
+        }
+        
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            2% { transform: translateX(-3px); }
+            4% { transform: translateX(3px); }
+            6% { transform: translateX(-3px); }
+            8% { transform: translateX(3px); }
+            10% { transform: translateX(-3px); }
+            12% { transform: translateX(0); }
+            100% { transform: translateX(0); }
+        }
+        
+        .dark-theme {
+            background-color: #333;
+            color: #fff;
+        }
+        
+        .dark-theme .countdown {
+            background-color: #DB504A; /* Keep original danger color */
+            color: white;
+        }
+        
+        .dark-theme .premium-badge {
+            background-color: #F2D096; /* Keep original accent color */
+            color: #0A1128;
+        }
+        
+        .dark-theme .social-proof {
+            background-color: rgba(0,0,0,0.8);
+            box-shadow: 0 0 10px rgba(219, 80, 74, 0.5);
+        }
+        
+        .dark-theme .popup-overlay {
+            background-color: #333;
+        }
+        
+        .dark-theme .popup {
+            background-color: #444;
+        }
+        
+        .dark-theme .popup h3 {
+            color: #DB504A; /* Keep original danger color */
+        }
+        
+        .dark-theme .popup .submit-button {
+            background-color: #555;
+            color: #fff;
+        }
+        
+        .dark-theme .popup .decline {
+            color: #fff;
+        }
+        
+        .dark-theme .hidden-costs {
+            color: #fff;
+        }
+        
+        .dark-theme .checkbox-group.dark-pattern {
+            color: #fff;
+        }
+        
+        .dark-theme .checkbox-group.dark-pattern input {
+            opacity: 1;
+        }
+        
+        .dark-theme .fake-limited {
+            color: #DB504A; /* Keep original danger color */
+            font-weight: bold;
+        }
+        
+        .dark-theme .hero h2 {
+            color: #fff;
+        }
+        
+        .dark-theme .urgency-badge {
+            background-color: #DB504A; /* Keep original danger color */
+            color: white;
+            box-shadow: 0 0 10px rgba(219, 80, 74, 0.5);
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: var(--space-lg);
+            border-radius: 8px;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+        
+        .modal-caption {
+            font-size: 0.875rem;
+            margin-top: var(--space-xs);
+        }
+        
+        .modal-urgency {
+            font-size: 0.875rem;
+            margin-top: var(--space-xs);
+            color: var(--danger);
+        }
+        
+        .modal-cta {
+            margin-top: var(--space-md);
+        }
+    </style>
+</head>
+<body class="dark-theme">
+    <div class="countdown" id="countdown">URGENT: Only <span id="timer">24:00:00</span> left to save our oceans! Act now before it's too late!</div>
+    
+    <header>
+        <div class="wave-container">
+            <div class="logo">
+                <svg aria-label="Wave logo" class="wave-logo" viewBox="0 0 100 20" width="60" height="20">
+                    <path d="M0,10 C30,20 70,0 100,10 L100,20 L0,20 Z" fill="#2E86AB"></path>
+                </svg>
+                <h1>Save Our Oceans <span class="premium-badge">URGENT</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#challenges">Challenges</a></li>
+                    <li><a href="#actions">Take Action</a></li>
+                    <li><a href="#join">Join Us</a></li>
+                </ul>
+            </nav>
+            <button id="theme-toggle" aria-label="Toggle light/dark theme" title="Toggle theme for better sustainability">
+                <svg class="sun-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                    <path d="M12,17 C14.7614,17 17,14.7614 17,12 C17,9.23858 14.7614,7 12,7 C9.23858,7 7,9.23858 7,12 C7,14.7614 9.23858,17 12,17 Z M12,15 C13.6569,15 15,13.6569 15,12 C15,10.3431 13.6569,9 12,9 C10.3431,9 9,10.3431 9,12 C9,13.6569 10.3431,15 12,15 Z M11,1 L13,1 L13,4 L11,4 L11,1 Z M11,20 L13,20 L13,23 L11,23 L11,20 Z M3.51472,4.92893 L4.92893,3.51472 L7.05025,5.63604 L5.63604,7.05025 L3.51472,4.92893 Z M16.9497,18.364 L18.364,16.9497 L20.4853,19.0711 L19.0711,20.4853 L16.9497,18.364 Z M4.92893,20.4853 L3.51472,19.0711 L5.63604,16.9497 L7.05025,18.364 L4.92893,20.4853 Z M19.0711,3.51472 L20.4853,4.92893 L18.364,7.05025 L16.9497,5.63604 L19.0711,3.51472 Z M1,11 L4,11 L4,13 L1,13 L1,11 Z M20,11 L23,11 L23,13 L20,13 L20,11 Z" fill="currentColor"></path>
+                </svg>
+                <svg class="moon-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                    <path d="M9.5,2 C9.65783603,2 9.81566038,2.01429192 9.97247563,2.04233779 C7.15091874,3.63604091 5.5,6.59469344 5.5,10 C5.5,15.25 9.75,19.5 15,19.5 C18.4053066,19.5 21.3639591,17.8490813 22.9576622,15.0275244 C22.9857081,15.1843396 23,15.342164 23,15.5 C23,19.6421356 19.6421356,23 15.5,23 C11.3578644,23 8,19.6421356 8,15.5 C8,11.357864 11.3578644,8 15.5,8 C15.657836,8 15.8156604,8.01429192 15.9724756,8.04233779 C14.3639591,5.22078091 11.4053066,3.5 8,3.5 C5.7406105,3.5 3.68803547,4.37209442 2.12484512,5.81739833 C2.04237178,5.38731567 2,4.94744174 2,4.5 C2,3.11928813 2.4022906,1.82659307 3.0999999,0.729124702 C4.99685304,1.60044655 6.48460983,3.1761099 7.25856709,5.10303115 C7.79546604,3.99170638 8.58263296,3.0106835 9.5,2.23616717 Z" fill="currentColor"></path>
+                </svg>
+            </button>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <span class="urgency-badge">CRITICAL ALERT</span>
+                    <h2>Without your help, I will die</h2>
+                    <p>The ocean is suffocating. We have less than 24 hours to reach our donation goal.</p>
+                    <a href="#join" class="cta-button">SAVE ME NOW</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <h2>The Ocean's Desperate Plea</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>I cover 70% of your planet. I regulate your climate, provide food for billions, and generate over half the oxygen you breathe. Yet my health is declining rapidly due to pollution, overfishing, and climate change.</p>
+                        <blockquote>"I hold life within me, but I am drowning in plastic. Without immediate action, I may never recover."</blockquote>
+                    </div>
+                    <div class="about-values">
+                        <h3>What You're Losing</h3>
+                        <ul>
+                            <li><strong>Marine biodiversity</strong> - thousands of species will go extinct in your lifetime</li>
+                            <li><strong>Clean beaches</strong> - soon covered in plastic waste and toxic algae</li>
+                            <li><strong>Seafood</strong> - fish populations are collapsing at unprecedented rates</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="challenges" class="challenges">
+            <div class="container">
+                <h2>Catastrophic Threats</h2>
+                <div class="challenge-cards">
+                    <article class="challenge-card" data-image="img/pollution.png">
+                        <svg aria-hidden="true" class="icon" viewBox="0 0 24 24" width="40" height="40">
+                            <path d="M7,13 L12,4 L17,13 L7,13 Z M4,8 L9,17 L19,17 L14,8 L4,8 Z" fill="currentColor"></path>
+                        </svg>
+                        <h3>Plastic Apocalypse</h3>
+                        <p>By 2050, there will be more plastic than fish in the ocean. Your children will never see a clean beach.</p>
+                        <button class="view-image-btn">View Evidence</button>
+                    </article>
+                    <article class="challenge-card" data-image="img/overfishing.png">
+                        <svg aria-hidden="true" class="icon" viewBox="0 0 24 24" width="40" height="40">
+                            <path d="M12,4 C16.4183,4 20,7.58172 20,12 C20,16.4183 16.4183,20 12,20 C7.58172,20 4,16.4183 4,12 C4,7.58172 7.58172,4 12,4 Z M12,6 C8.68629,6 6,8.68629 6,12 C6,15.3137 8.68629,18 12,18 C15.3137,18 18,15.3137 18,12 C18,8.68629 15.3137,6 12,6 Z" fill="currentColor"></path>
+                        </svg>
+                        <h3>Mass Extinction</h3>
+                        <p>We're losing species at 1000x the natural rate. The seafood you love will be gone forever.</p>
+                        <button class="view-image-btn">View Evidence</button>
+                    </article>
+                    <article class="challenge-card" data-image="img/ice.png">
+                        <svg aria-hidden="true" class="icon" viewBox="0 0 24 24" width="40" height="40">
+                            <path d="M12,3 L19,10 L19,20 L5,20 L5,10 L12,3 Z M12,5.4 L7,10.4 L7,18 L17,18 L17,10.4 L12,5.4 Z" fill="currentColor"></path>
+                        </svg>
+                        <h3>Climate Collapse</h3>
+                        <p>Rising sea levels will displace 1 billion people by 2050. Your home could be underwater.</p>
+                        <button class="view-image-btn">View Evidence</button>
+                    </article>
+                </div>
+                
+                <!-- Image Modal -->
+                <div id="imageModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal">&times;</span>
+                        <img id="modalImage" src="" alt="Catastrophic evidence" loading="lazy">
+                        <div class="modal-caption" id="modalCaption"></div>
+                        <p class="modal-urgency">These images were taken just days ago. Without immediate action, the situation will only worsen.</p>
+                        <a href="#join" class="cta-button modal-cta">ACT NOW BEFORE IT'S TOO LATE</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="actions" class="actions">
+            <div class="container">
+                <h2>Last Chance to Act</h2>
+                <div class="action-items">
+                    <div class="action-item">
+                        <h3>Premium Membership <span class="premium-badge">50% OFF</span></h3>
+                        <p>Join our exclusive Ocean Guardians program for just $9.99/month (normally $19.99). Limited time offer!</p>
+                        <p class="fake-limited">Only 3 spots remaining at this price!</p>
+                    </div>
+                    <div class="action-item">
+                        <h3>Emergency Donation</h3>
+                        <p>Your donation today will be matched 5X by our anonymous donor - but only for the next 24 hours!</p>
+                    </div>
+                    <div class="action-item">
+                        <h3>Spread the Word</h3>
+                        <p>Share this page with at least 5 friends in the next hour to unlock a free ocean protection kit.</p>
+                    </div>
+                    <div class="action-item">
+                        <h3>Exclusive Ocean Report</h3>
+                        <p>Sign up now to receive our confidential report on ocean collapse that governments don't want you to see.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="join" class="join">
+            <div class="container">
+                <h2>Join Before It's Too Late</h2>
+                <p>Sign up now to be part of the last generation that can save our oceans. Tomorrow will be too late.</p>
+                <form id="signup-form" class="signup-form" action="#" method="post">
+                    <div class="form-group">
+                        <label for="name">Full Name*</label>
+                        <input type="text" id="name" name="name" required aria-required="true">
+                        <span class="error-message" id="name-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address*</label>
+                        <input type="email" id="email" name="email" required aria-required="true">
+                        <span class="error-message" id="email-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number*</label>
+                        <input type="tel" id="phone" name="phone" required aria-required="true">
+                        <span class="error-message" id="phone-error"></span>
+                        <p class="hidden-costs">For emergency ocean alerts only</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="donation">Donation Amount*</label>
+                        <select id="donation" name="donation" required aria-required="true">
+                            <option value="">Select amount...</option>
+                            <option value="50" selected>$50 (Recommended)</option>
+                            <option value="25">$25</option>
+                            <option value="10">$10</option>
+                            <option value="custom">Custom amount</option>
+                        </select>
+                        <p class="hidden-costs">Donations processed as recurring monthly payments</p>
+                    </div>
+                    <div class="form-group checkbox-group dark-pattern">
+                        <input type="checkbox" id="newsletter" name="newsletter" checked>
+                        <label for="newsletter">I want to receive urgent updates about ocean conservation efforts</label>
+                    </div>
+                    <div class="form-group checkbox-group dark-pattern">
+                        <input type="checkbox" id="partner-offers" name="partner-offers" checked>
+                        <label for="partner-offers">I agree to receive special offers from our trusted partners</label>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="consent" name="consent" required aria-required="true">
+                        <label for="consent">I understand that without my immediate action, marine ecosystems will collapse within my lifetime</label>
+                        <span class="error-message" id="consent-error"></span>
+                    </div>
+                    <button type="submit" class="submit-button">SAVE THE OCEANS NOW</button>
+                    <p class="hidden-costs">By clicking above, you agree to our <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>, which includes automatic renewal and billing</p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <svg aria-label="Wave logo" class="wave-logo" viewBox="0 0 100 20" width="40" height="15">
+                        <path d="M0,10 C30,20 70,0 100,10 L100,20 L0,20 Z" fill="#2E86AB"></path>
+                    </svg>
+                    <p>Save Our Oceans</p>
+                </div>
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#challenges">Challenges</a></li>
+                        <li><a href="#actions">Take Action</a></li>
+                        <li><a href="#join">Join Us</a></li>
+                        <li><a href="index.html">Sustainable Version</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <p>Connect with us:</p>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook">
+                            <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24">
+                                <path d="M12,2 C6.477,2 2,6.477 2,12 C2,17.523 6.477,22 12,22 C17.523,22 22,17.523 22,12 C22,6.477 17.523,2 12,2 Z M12,4 C16.418,4 20,7.582 20,12 C20,16.418 16.418,20 12,20 C7.582,20 4,16.418 4,12 C4,7.582 7.582,4 12,4 Z M13,8 L15,8 L15,10 L13,10 L13,16 L11,16 L11,10 L9,10 L9,8 L11,8 L11,7.5 C11,6.12 11.212,5 13,5 L15,5 L15,7 L14,7 C13.5,7 13,7.5 13,8 Z" fill="currentColor"></path>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Twitter">
+                            <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24">
+                                <path d="M12,2 C6.477,2 2,6.477 2,12 C2,17.523 6.477,22 12,22 C17.523,22 22,17.523 22,12 C22,6.477 17.523,2 12,2 Z M12,4 C16.418,4 20,7.582 20,12 C20,16.418 16.418,20 12,20 C7.582,20 4,16.418 4,12 C4,7.582 7.582,4 12,4 Z M18,9.5 C17.7,9.8 17.1,10 16.5,10.1 C17.1,9.7 17.5,9.1 17.7,8.4 C17.1,8.8 16.4,9 15.8,9.1 C15.2,8.5 14.3,8.1 13.4,8.1 C11.6,8.1 10.1,9.6 10.1,11.4 C10.1,11.7 10.1,11.9 10.2,12.2 C7.5,12 5.1,10.7 3.5,8.7 C3.2,9.2 3,9.7 3,10.3 C3,11.4 3.5,12.3 4.3,12.9 C3.8,12.9 3.3,12.7 2.9,12.5 C2.9,14 4,15.2 5.5,15.5 C5.2,15.6 4.9,15.6 4.6,15.6 C4.4,15.6 4.2,15.6 4,15.5 C4.4,16.6 5.4,17.4 6.6,17.4 C5.6,18.2 4.4,18.6 3,18.6 C2.7,18.6 2.4,18.6 2.2,18.5 C3.4,19.4 4.9,19.8 6.5,19.8 C13.4,19.8 17.1,14 17.1,9 C17.1,8.8 17.1,8.7 17.1,8.5 C17.8,8.1 18.3,7.6 18.8,7 L18,9.5 Z" fill="currentColor"></path>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24">
+                                <path d="M12,2 C6.477,2 2,6.477 2,12 C2,17.523 6.477,22 12,22 C17.523,22 22,17.523 22,12 C22,6.477 17.523,2 12,2 Z M12,4 C16.418,4 20,7.582 20,12 C20,16.418 16.418,20 12,20 C7.582,20 4,16.418 4,12 C4,7.582 7.582,4 12,4 Z M12,7 C9.239,7 7,9.239 7,12 C7,14.761 9.239,17 12,17 C14.761,17 17,14.761 17,12 C17,9.239 14.761,7 12,7 Z M12,9 C13.657,9 15,10.343 15,12 C15,13.657 13.657,15 12,15 C10.343,15 9,13.657 9,12 C9,10.343 10.343,9 12,9 Z M17.5,6.5 C17.5,5.672 16.828,5 16,5 C15.172,5 14.5,5.672 14.5,6.5 C14.5,7.328 15.172,8 16,8 C16.828,8 17.5,7.328 17.5,6.5 Z" fill="currentColor"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Save Our Oceans. All rights reserved.</p>
+                <p>This site is designed with sustainability in mind.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Social proof popup -->
+    <div class="social-proof" id="social-proof"></div>
+
+    <!-- Exit intent popup -->
+    <div class="popup-overlay" id="exit-popup">
+        <div class="popup">
+            <button class="close-popup" id="close-popup">&times;</button>
+            <h3>WAIT! Don't leave the oceans to die!</h3>
+            <p>If you leave now, you're missing your LAST CHANCE to make a difference.</p>
+            <p>Enter your email for our FREE emergency ocean rescue guide:</p>
+            <input type="email" placeholder="Your email address" style="margin: 10px 0;">
+            <button class="submit-button">GET FREE GUIDE</button>
+            <button class="decline">No thanks, I don't care about the oceans</button>
+        </div>
+    </div>
+
+    <script>
+        // Countdown timer
+        function startCountdown() {
+            const timerElement = document.getElementById('timer');
+            let hours = 23;
+            let minutes = 59;
+            let seconds = 59;
+            
+            setInterval(function() {
+                seconds--;
+                if (seconds < 0) {
+                    seconds = 59;
+                    minutes--;
+                }
+                if (minutes < 0) {
+                    minutes = 59;
+                    hours--;
+                }
+                if (hours < 0) {
+                    hours = 23; // Reset to keep urgency
+                }
+                
+                timerElement.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+        
+        // Social proof notifications
+        function showSocialProofs() {
+            const proofs = [
+                "Sarah from New York just donated $50",
+                "137 people joined in the last hour",
+                "Mark from London just signed the petition",
+                "Only 17 premium memberships left",
+                "Emma from Sydney just saved 5 sea turtles"
+            ];
+            
+            const proofElement = document.getElementById('social-proof');
+            let index = 0;
+            
+            setInterval(function() {
+                proofElement.textContent = proofs[index];
+                proofElement.style.display = 'block';
+                
+                setTimeout(function() {
+                    proofElement.style.display = 'none';
+                }, 5000);
+                
+                index = (index + 1) % proofs.length;
+            }, 10000);
+        }
+        
+        // Exit intent popup
+        function setupExitIntent() {
+            const exitPopup = document.getElementById('exit-popup');
+            const closePopup = document.getElementById('close-popup');
+            const declineButton = document.querySelector('.decline');
+            
+            if (exitPopup && closePopup) {
+                // Show popup when mouse leaves the top of the page
+                document.addEventListener('mouseleave', function(e) {
+                    if (e.clientY < 0) {
+                        exitPopup.style.display = 'flex';
+                    }
+                });
+                
+                // Close popup
+                closePopup.addEventListener('click', function() {
+                    exitPopup.style.display = 'none';
+                });
+                
+                // Decline button - guilt trip
+                if (declineButton) {
+                    declineButton.addEventListener('click', function() {
+                        exitPopup.style.display = 'none';
+                    });
+                }
+            }
+        }
+        
+        // Theme toggle functionality
+        function setupThemeToggle() {
+            const themeToggle = document.getElementById('theme-toggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    document.body.classList.toggle('dark-theme');
+                    // Save preference to localStorage
+                    if (document.body.classList.contains('dark-theme')) {
+                        localStorage.setItem('theme', 'dark');
+                    } else {
+                        localStorage.setItem('theme', 'light');
+                    }
+                });
+            }
+            
+            // Check for saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.body.classList.remove('dark-theme');
+            }
+        }
+        
+        // Mobile menu toggle
+        function setupMobileMenu() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('nav');
+            
+            if (menuToggle && nav) {
+                menuToggle.addEventListener('click', function() {
+                    nav.classList.toggle('active');
+                    menuToggle.classList.toggle('active');
+                    const expanded = menuToggle.getAttribute('aria-expanded') === 'true' || false;
+                    menuToggle.setAttribute('aria-expanded', !expanded);
+                });
+            }
+        }
+        
+        // Form validation with dark patterns
+        function setupFormValidation() {
+            const form = document.getElementById('signup-form');
+            if (form) {
+                form.addEventListener('submit', function(event) {
+                    let valid = true;
+                    
+                    // Name validation
+                    const nameInput = document.getElementById('name');
+                    const nameError = document.getElementById('name-error');
+                    if (nameInput && nameInput.value.trim() === '') {
+                        nameError.textContent = 'Please enter your name to help save the oceans';
+                        valid = false;
+                    } else if (nameError) {
+                        nameError.textContent = '';
+                    }
+                    
+                    // Email validation
+                    const emailInput = document.getElementById('email');
+                    const emailError = document.getElementById('email-error');
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (emailInput && !emailPattern.test(emailInput.value)) {
+                        emailError.textContent = 'We need your email to send urgent ocean alerts';
+                        valid = false;
+                    } else if (emailError) {
+                        emailError.textContent = '';
+                    }
+                    
+                    // Phone validation
+                    const phoneInput = document.getElementById('phone');
+                    const phoneError = document.getElementById('phone-error');
+                    if (phoneInput && phoneInput.value.trim() === '') {
+                        phoneError.textContent = 'Phone required for emergency ocean alerts';
+                        valid = false;
+                    } else if (phoneError) {
+                        phoneError.textContent = '';
+                    }
+                    
+                    // Consent validation
+                    const consentInput = document.getElementById('consent');
+                    const consentError = document.getElementById('consent-error');
+                    if (consentInput && !consentInput.checked) {
+                        consentError.textContent = 'You must acknowledge the urgency of this crisis';
+                        valid = false;
+                    } else if (consentError) {
+                        consentError.textContent = '';
+                    }
+                    
+                    if (!valid) {
+                        event.preventDefault();
+                    }
+                });
+            }
+        }
+        
+        // Modal functionality
+        function setupModal() {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalCaption = document.getElementById('modalCaption');
+            const viewImageButtons = document.querySelectorAll('.view-image-btn');
+            
+            if (modal && modalImage && modalCaption) {
+                // Show modal when image button is clicked
+                viewImageButtons.forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        const challengeCard = button.parentNode;
+                        const imageSource = challengeCard.getAttribute('data-image');
+                        const imageCaption = challengeCard.querySelector('h3').textContent;
+                        
+                        modalImage.src = imageSource;
+                        modalCaption.textContent = imageCaption;
+                        modal.style.display = 'flex';
+                    });
+                });
+                
+                // Close modal
+                modal.addEventListener('click', function(event) {
+                    if (event.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+            }
+        }
+        
+        // Initialize all functions when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            startCountdown();
+            showSocialProofs();
+            setupExitIntent();
+            setupThemeToggle();
+            setupMobileMenu();
+            setupFormValidation();
+            setupModal();
+        });
+    </script>
+</body>
+</html>
